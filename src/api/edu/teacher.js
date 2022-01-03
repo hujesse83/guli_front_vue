@@ -33,5 +33,11 @@ export default {
       method: "post",
       data: teacher
     });
+  },
+  getAllTeacher() {
+    return request({
+      url: TEACHER_SERVICE + `/all`,
+      method: "get"
+    });
   }
 };
