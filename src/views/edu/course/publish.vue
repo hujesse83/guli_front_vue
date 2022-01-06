@@ -33,7 +33,7 @@ export default {
     console.log('publish created')
   },
 
-  methods: {
+   methods: {
     previous() {
       console.log('previous')
       this.$router.push({ path: '/course/chapter/1' })

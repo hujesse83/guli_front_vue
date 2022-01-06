@@ -114,6 +114,7 @@ export default {
                 cover: '/static/dataType.png',
                 price: 0
             },
+            courseId: '',
             BASE_API: process.env.BASE_API, // 接口API地址
             teacherList:[],//封装所有的讲师
             subjectOneList:[],//一级分类
@@ -125,8 +126,41 @@ export default {
         this.getListTeacher()
         //初始化一级分类
         this.getOneSubject()
+        if (this.$route.params && this.$route.params.id){
+            this.courseId = this.$route.params.id
+            this.getInfo()
+        }
     },
+    watch: {  //监听
+    $route(to, from) { //路由变化方式，路由发生变化，方法就会执行
+      this.courseInfo={}
+    }
+  },
     methods:{
+        getInfo() {
+            course.getCourseInfo(this.courseId)
+                .then(response => {
+                    //在courseInfo课程基本信息，包含 一级分类id 和 二级分类id
+                    this.courseInfo = response.data.courseInfoVo
+                    //1 查询所有的分类，包含一级和二级
+                   subject.getSubjectList()
+                        .then(response => {
+                            //2 获取所有一级分类
+                            this.subjectOneList = response.data.list
+                            //3 把所有的一级分类数组进行遍历，
+                            for(var i=0;i<this.subjectOneList.length;i++) {
+                                //获取每个一级分类
+                                var oneSubject = this.subjectOneList[i]
+                                //比较当前courseInfo里面一级分类id和所有的一级分类id
+                                if(this.courseInfo.subjectParentId == oneSubject.id) {
+                                    //获取一级分类所有的二级分类
+                                    this.subjectTwoList = oneSubject.children
+                                }
+                            }
+                        })
+                     this.getListTeacher()
+                })
+        },
         //上传封面成功调用的方法
         handleAvatarSuccess(res, file) {
             this.courseInfo.cover = res.data.url
@@ -143,6 +177,7 @@ export default {
         subjectLevelOneChanged(value) {
             //value就是一级分类id值
             //遍历所有的分类，包含一级和二级
+            this.getOneSubject();
             this.subjectTwoList = this.subjectOneList.filter(subject => subject.id === value)[0].children
             this.courseInfo.subjectId = '' 
         },
@@ -160,8 +195,9 @@ export default {
                     this.teacherList = response.data.item
                 })
         },
-        saveOrUpdate() {
-            course.addCourseInfo(this.courseInfo)
+        // 添加课程
+        addCourse(){
+                course.addCourseInfo(this.courseInfo)
                 .then(response => {
                     //提示
                     this.$message({
@@ -171,6 +207,23 @@ export default {
                     //跳转到第二步
                     this.$router.push({path:'/course/chapter/'+response.data.courseId})
                 })
+        },
+        updateCourse(){
+            course.updateCourseInfo(this.courseInfo)
+            .then(response=>{
+                       this.$message({
+                        type: 'success',
+                        message: '修改课程信息成功!'
+                    });
+             this.$router.push({path:'/course/chapter/'+this.courseId})
+            })
+        },
+        saveOrUpdate() {
+            if(this.courseInfo.id){
+                this.updateCourse();
+            }else{
+                this.addCourse();
+            }
         }
     }
 }
