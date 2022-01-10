@@ -20,5 +20,36 @@ export default {
       method: "post",
       data: courseInfo
     });
+  },
+  getPublishCourseInfo(id) {
+    return request({
+      url: COURSE_SERVICE + `/getPublishCourseInfo/${id}`,
+      method: "get"
+    });
+  },
+  publihCourse(id) {
+    return request({
+      url: COURSE_SERVICE + `/publishCourse/${id}`,
+      method: "post"
+    });
+  },
+  getListCourse() {
+    return request({
+      url: COURSE_SERVICE,
+      method: "get"
+    });
+  },
+  getCoursePageList(current, limit, courseQuery) {
+    return request({
+      url: COURSE_SERVICE + `/pageCourseCondition/${current}/${limit}`,
+      method: "post",
+      data: courseQuery
+    });
+  },
+  deleteCourseById(courseId){
+        return request({
+          url: COURSE_SERVICE + `/delete/${courseId}`,
+          method: "delete",
+        });
   }
 };

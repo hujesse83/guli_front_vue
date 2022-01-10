@@ -55,15 +55,15 @@ export const constantRouterMap = [
     children: [
       {
         path: "table",
-        name: "Table",
+        name: "teacherList",
         component: () => import("@/views/edu/teacher/list"),
-        meta: { title: "Table", icon: "table" }
+        meta: { title: "teacherList", icon: "table" }
       },
       {
         path: "add",
         name: "addTeacher",
         component: () => import("@/views/edu/teacher/save"),
-        meta: { title: "addTeacher", icon: "tree" }
+        meta: { title: "AddTeacher", icon: "tree" }
       },
       {
         path: "edit/:id",
@@ -79,40 +79,40 @@ export const constantRouterMap = [
     path: "/course",
     component: Layout,
     redirect: "/course/list",
-    name: "课程管理",
-    meta: { title: "课程管理", icon: "example" },
+    name: "Course",
+    meta: { title: "Course", icon: "example" },
     children: [
       {
         path: "list",
         name: "课程列表",
         component: () => import("@/views/edu/course/list"),
-        meta: { title: "课程列表", icon: "table" }
+        meta: { title: "CourseList", icon: "table" }
       },
       {
         path: "info",
         name: "添加课程",
         component: () => import("@/views/edu/course/info"),
-        meta: { title: "添加课程", icon: "tree" }
+        meta: { title: "AddCourse", icon: "tree" }
       },
       {
         path: "info/:id",
         name: "课程列表",
         component: () => import("@/views/edu/course/info"),
-        meta: { title: "编辑课程基本信息", icon: "table" },
+        meta: { title: "UpdateCourseInfo", icon: "table" },
         hidden: true
       },
       {
         path: "chapter/:id",
         name: "课程列表",
         component: () => import("@/views/edu/course/chapter"),
-        meta: { title: "课程编辑课程大纲", icon: "table" },
+        meta: { title: "UpdateCourseChapter", icon: "table" },
         hidden: true
       },
       {
         path: "publish/:id",
         name: "课程列表",
         component: () => import("@/views/edu/course/publish"),
-        meta: { title: "发布课程", icon: "table" },
+        meta: { title: "Publish", icon: "table" },
         hidden: true
       }
     ]
@@ -123,19 +123,19 @@ export const constantRouterMap = [
     component: Layout,
     redirect: "/teacher/list",
     name: "课程分类管理",
-    meta: { title: "课程分类管理", icon: "example" },
+    meta: { title: "Taxonomy", icon: "example" },
     children: [
       {
         path: "list",
         name: "课程分类管理",
         component: () => import("@/views/edu/subject/list"),
-        meta: { title: "课程分类列表", icon: "table" }
+        meta: { title: "CourseTaxonomy", icon: "table" }
       },
       {
         path: "save",
         name: "添加课程分类",
         component: () => import("@/views/edu/subject/save"),
-        meta: { title: "添加课程分类", icon: "tree" }
+        meta: { title: "AddCourseTaxonomy", icon: "tree" }
       }
     ]
   },
