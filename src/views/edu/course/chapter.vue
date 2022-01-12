@@ -153,8 +153,30 @@ export default {
             //上传视频名称赋值
             this.video.videoOriginalName = file.name
         },
+                //点击×调用这个方法
+        beforeVodRemove(file,fileList) {
+            return this.$confirm(`确定移除 ${ file.name }？`);
+        },
         handleUploadExceed() {
             this.$message.warning('想要重新上传视频，请先删除已上传的视频')
+        },
+        handleVodRemove() {
+            //调用接口的删除视频的方法
+            video.deleteAliyunVideo(this.video.videoSourceId)
+                .then(response => {
+                    //提示信息
+                    this.$message({
+                        type: 'success',
+                        message: '删除视频成功!'
+                    });
+                    //把文件列表清空
+                    this.fileList = []
+                    //把video视频id和视频名称值清空
+                    //上传视频id赋值
+                    this.video.videoSourceId = ''
+                    //上传视频名称赋值
+                    this.video.videoOriginalName = ''
+                })
         },
 //==============================小节操作====================================
         //删除小节
@@ -205,6 +227,8 @@ export default {
                     this.getChapterVideo()
                     this.video = {}
                 })
+        this.fileList = []
+        this.video = {}
         },
         saveOrUpdateVideo() {
             if(!this.video.id) {
