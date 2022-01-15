@@ -12,8 +12,9 @@ import NuxtBuildIndicator from './components/nuxt-build-indicator'
 import '../node_modules/swiper/dist/css/swiper.css'
 
 import _6f6c098b from '../layouts/default.vue'
+import _2d297eb3 from '../layouts/sign.vue'
 
-const layouts = { "_default": _6f6c098b }
+const layouts = { "_default": _6f6c098b,"_sign": _2d297eb3 }
 
 export default {
   head: {"title":"在线教育平台","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"{{escape description }}"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"}],"style":[],"script":[]},
