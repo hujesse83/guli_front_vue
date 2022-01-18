@@ -111,7 +111,7 @@ export default {
                 teacherId: '',
                 lessonNum: 0,
                 description: '',
-                cover: '/static/dataType.png',
+                cover: 'https://guli-edu-9527.oss-cn-shanghai.aliyuncs.com/2022/01/fe10c412a1054385a79d4cd0ee58fa5cfile.png',
                 price: 0
             },
             courseId: '',
