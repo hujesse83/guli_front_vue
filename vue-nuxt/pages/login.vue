@@ -77,8 +77,9 @@
                 .then(response => {
                   this.loginInfo = response.data.data.userInfo
                   this.loginInfo = JSON.stringify(this.loginInfo);
+                  console.log(loginInfo)
                   //获取返回用户信息，放到cookie里面
-                  cookie.set('guli_ucenter',this.loginInfo,{domain: 'localhost'})
+                  cookie.set('guli_ucenter',JSON.stringify(this.loginInfo),{domain: 'localhost'})
 
                   //跳转页面
                   window.location.href = "/";
