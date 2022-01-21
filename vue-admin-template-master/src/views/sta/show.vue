@@ -48,7 +48,7 @@ export default {
     },
     methods:{
         showChart() {
-            staApi.getDataSta(this.searchObj.begin,this.searchObj.end)
+            staApi.getDataSta(this.searchObj)
                 .then(response => {
                     this.statisticData = response.data
                     console.log(this.statisticData)
