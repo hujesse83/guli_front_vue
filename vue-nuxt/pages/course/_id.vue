@@ -160,13 +160,19 @@
       </div>
     </section>
     <!-- /课程详情 结束 -->
+    <comment :courseId="this.courseId"/>
   </div>
 </template>
 
 <script>
 import courseApi from '@/api/course'
 import ordersApi from '@/api/orders'
+import comment from "@/components/comment";
+import cookie from "js-cookie"
 export default {
+    components: {
+    comment
+  },
    asyncData({ params, error }) {
      return {courseId:params.id}
    },
@@ -192,6 +198,13 @@ export default {
      },
      //生成订单
      createOrders() {
+       if (!cookie.get('guli_token')) {
+        this.$message({
+          type: 'error',
+          message: '请先登录'
+        })
+        return false
+      }
        ordersApi.createOrders(this.courseId)
         .then(response => {
           //获取返回订单号
